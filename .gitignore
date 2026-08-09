@@ -69,3 +69,11 @@ firebase-adminsdk*.json
 # =========================
 .cache/
 tmp/
+
+# Firebase CLI
+.firebase/
+firebase-debug.log
+firestore-debug.log
+# Misc caches
+.eslintcache
+dist-ssr/
