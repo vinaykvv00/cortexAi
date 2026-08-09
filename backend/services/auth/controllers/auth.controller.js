@@ -63,3 +63,8 @@ export const logOut = async (req, res) => {
         return res.status(500).json({ message: `logout error ${error}` })
     }
 }
+
+// 1. Read `session` cookie from the request
+// 2. redis.get(`session-${sessionId}`)
+// 3. Not found / expired -> 401 Unauthorized
+// 4. Found -> JSON.parse it, attach as req.user, let the request continue

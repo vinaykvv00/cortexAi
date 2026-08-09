@@ -1,37 +1,27 @@
-import React from "react";
 import { signInWithPopup } from "firebase/auth";
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUserdata } from "./redux/userSlice";
 import { auth, googleProvider } from "../utils/firebase";
-import api from "../utils/axios.js";
+import api from "../utils/axios";
+import Home from "./pages/Home";
+import getCurrentUser from "./features/getCurrentUser";
 
 function App() {
-  const handleLogin = async (token) => {
-    try {
-      const { data } = await api.post("/auth/login", { token });
-      console.log("User data:", data);
-    } catch (error) {
-      console.error("Login error:", error);
-    }
-  };
+  const dispatch = useDispatch();
 
-  const googleLogin = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-      const token = await result.user.getIdToken();
-      await handleLogin(token);
-
-      console.log(token);
-      console.log(result.user);
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  useEffect(() => {
+    const getUser = async () => {
+      const data = await getCurrentUser();
+      dispatch(setUserdata(data));
+    };
+    getUser();
+  }, []);
 
   return (
-    <div className="w-full h-screen bg-black flex items-center justify-center">
-      <button className="w-52 h-24 bg-white" onClick={googleLogin}>
-        Sign in with Google
-      </button>
-    </div>
+    <>
+      <Home />
+    </>
   );
 }
 
