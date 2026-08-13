@@ -6,6 +6,9 @@ import { auth, googleProvider } from "../../utils/firebase";
 import api from "../../utils/axios.js";
 import { FcGoogle } from "react-icons/fc";
 import { useSelector } from "react-redux";
+import SideBar from "../components/SideBar";
+import ChatArea from "../components/ChatArea";
+import Artifact from "../components/Artifact";
 
 function Home() {
   const { userData } = useSelector((state) => state.user);
@@ -36,6 +39,9 @@ function Home() {
 
   return (
     <div className="h-screen  flex bg-[#0d0f14] text-white overflow-hidden">
+      <SideBar />
+      <ChatArea />
+      <Artifact />
       {!userData && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur">
           <div className="w-[340px] bg-[#13151c] border border-white/[0.08] rounded-2xl p-7 flex flex-col gap-5">
